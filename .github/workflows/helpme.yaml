@@ -109,7 +109,7 @@ jobs:
                 languages: ${{ matrix.language }}
                 # TODO#8: enable extended security + quality query suites
                 # queries: ???
-                queries: security-extended ,security-and-quality
+                queries: security-extended,security-and-quality
                 # RESOURCE — CodeQL query suites:
                 # https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/codeql-code-scanning-for-compiled-languages#codeql-query-suites
                 #
@@ -200,7 +200,7 @@ jobs:
             # TODO#16: build the Docker image tagged `my-app:latest`
             #          Hint: `docker build -t ...`
             - name: Build Docker
-              run: docker build -t my-app:latest
+              run: docker build -t my-app:latest .
 
             - name: Trivy Scan
               uses: aquasecurity/trivy-action@master
@@ -208,10 +208,10 @@ jobs:
               with:
                 image-ref: 'my-app:latest'
                 # TODO#17: output format for Security tab integration
-                format: 'SARIF'
+                format: 'sarif'
                 output: 'trivy-results.sarif'
                 # TODO#18: which severities should be reported? (UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL)
-                severity: 'MEDIUM'
+                severity: 'HIGH,CRITICAL'
                 # TODO#19: should we include CVEs with no available fix? set flag accordingly
                 ignore-unfixed: true
 
